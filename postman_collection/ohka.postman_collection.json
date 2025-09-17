@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "06795684-1aee-47f0-9c6c-acc566de29c6",
+		"_postman_id": "a9a75ada-97c3-4278-80a5-a70519fe0da5",
 		"name": "ohka",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "8544597"
@@ -8,21 +8,28 @@
 	"item": [
 		{
 			"name": "getPaginatedProducts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6b3JrNjkwIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MDk4MzEyLCJleHAiOjE3NTgxMzQzMTJ9.IzBeuX82joDGy02JWJ21zQnZ9K3TiH13DGqfEQcjfvU",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/products",
+					"raw": "http://localhost:8080/api/ohka/products?page=1&size=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -32,6 +39,16 @@
 						"api",
 						"ohka",
 						"products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						}
 					]
 				},
 				"description": "StartFragment\n\n```\n### GET /api/products\n\n**Descripción:**  \nObtiene una lista paginada de todos los productos registrados en el sistema.\n\n**Parámetros de consulta:**\n\n- `page` (int, opcional): Número de página que se desea consultar. Valor por defecto: `0`.\n- `size` (int, opcional): Cantidad de productos por página. Valor por defecto: `10`.\n\n**Respuesta exitosa (`200 OK`):**  \nDevuelve una estructura paginada con los productos solicitados.\n\n**Ejemplo de respuesta:**\n```json\n{\n  \"content\": [\n    {\n      \"id\": 1,\n      \"name\": \"Smartphone\",\n      \"description\": \"Latest model\",\n      \"price\": 799.99,\n      \"category\": {\n        \"id\": 100,\n        \"name\": \"Electronics\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"T-Shirt\",\n      \"description\": \"Cotton, size M\",\n      \"price\": 19.99,\n      \"category\": {\n        \"id\": 101,\n        \"name\": \"Clothing\"\n      }\n    }\n  ],\n  \"totalElements\": 2,\n  \"totalPages\": 1,\n  \"number\": 0,\n  \"size\": 10\n}\n\n ```\n\nEndFragment"
@@ -41,10 +58,20 @@
 		{
 			"name": "getProductById",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/products/1",
+					"raw": "http://localhost:8080/api/ohka/products/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,7 +81,7 @@
 						"api",
 						"ohka",
 						"products",
-						"1"
+						"3"
 					]
 				},
 				"description": "``` markdown\n### GET /api/products/{id}\n\n**Descripción:**  \nObtiene los detalles de un producto específico según su ID.\n\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único del producto que se desea consultar.\n\n**Respuesta exitosa (`200 OK`):**  \nDevuelve el objeto `Product` correspondiente al ID solicitado.\n\n**Respuesta de error (`404 Not Found`):**  \nNo existe un producto con el ID especificado.\n\n**Ejemplo de respuesta:**\n```json\n{\n  \"id\": 1,\n  \"name\": \"Smartphone\",\n  \"description\": \"Latest model\",\n  \"price\": 799.99,\n  \"category\": {\n    \"id\": 100,\n    \"name\": \"Electronics\"\n  }\n}\n\n ```"
@@ -64,8 +91,27 @@
 		{
 			"name": "upsertProduct",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Laptop Dell Inspiron\",\r\n  \"description\": \"Laptop de alto rendimiento con procesador Intel i7\",\r\n  \"price\": 18999.99,\r\n  \"category\": {\r\n    \"id\": 100\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:8080/api/ohka/products/save",
 					"protocol": "http",
@@ -87,10 +133,20 @@
 		{
 			"name": "deleteProductById",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/products/{id}",
+					"raw": "http://localhost:8080/api/ohka/products/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -100,7 +156,7 @@
 						"api",
 						"ohka",
 						"products",
-						"{id}"
+						"3"
 					]
 				},
 				"description": "StartFragment\n\n``` markdown\n### DELETE /api/products/{id}\n**Descripción:**  \nElimina un producto existente según su ID. Esta operación es irreversible.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único del producto que se desea eliminar.\n**Respuesta exitosa (`204 No Content`):**  \nEl producto fue eliminado correctamente. No se devuelve contenido en el cuerpo de la respuesta.\n**Errores comunes:**\n- `401 Unauthorized`: Token no incluido o inválido.\n- `404 Not Found`: No existe un producto con el ID especificado.\n- `403 Forbidden`: El usuario no tiene permisos para eliminar productos (si aplica control de roles).\n**Notas:**\n- Asegúrate de que el ID exista antes de intentar eliminar.\n- Esta operación no se puede deshacer.\n\n ```\n\nEndFragment"
@@ -110,10 +166,20 @@
 		{
 			"name": "getProductsByFilter",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/products/filter",
+					"raw": "http://localhost:8080/api/ohka/products/filter?name=laptop&category=Electronics&minPrice=0.1&maxPrice=10.0&page=0&size=10&sortBy=id&direction=desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -124,6 +190,40 @@
 						"ohka",
 						"products",
 						"filter"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "laptop"
+						},
+						{
+							"key": "category",
+							"value": "Electronics"
+						},
+						{
+							"key": "minPrice",
+							"value": "0.1"
+						},
+						{
+							"key": "maxPrice",
+							"value": "10.0"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "direction",
+							"value": "desc"
+						}
 					]
 				},
 				"description": "StartFragment\n\n``` markdown\n### GET /api/products/filter\n**Descripción:**  \nFiltra productos según nombre, categoría, rango de precios y ordenamiento. Devuelve los resultados en formato paginado.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de consulta:**\n- `name` (String, opcional): Nombre parcial del producto.\n- `category` (String, opcional): Nombre de la categoría.\n- `minPrice` (Double, opcional): Precio mínimo.\n- `maxPrice` (Double, opcional): Precio máximo.\n- `page` (int, opcional): Número de página. Valor por defecto: `0`.\n- `size` (int, opcional): Cantidad de productos por página. Valor por defecto: `10`.\n- `sortBy` (String, opcional): Campo por el cual ordenar (`id`, `name`, `price`, etc.). Valor por defecto: `id`.\n- `direction` (String, opcional): Dirección de ordenamiento (`asc` o `desc`). Valor por defecto: `asc`.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve una página de productos que cumplen con los criterios de búsqueda.\n**Ejemplo de respuesta:**\n```json\n{\n  \"content\": [\n    {\n      \"id\": 5,\n      \"name\": \"Laptop\",\n      \"description\": \"High performance\",\n      \"price\": 1500.00,\n      \"category\": {\n        \"id\": 100,\n        \"name\": \"Electronics\"\n      }\n    }\n  ],\n  \"totalElements\": 1,\n  \"totalPages\": 1,\n  \"number\": 0,\n  \"size\": 10\n}\n\n ```\n\nEndFragment"
@@ -133,6 +233,16 @@
 		{
 			"name": "getAllCategories",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -155,10 +265,20 @@
 		{
 			"name": "getCategoryById",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/categories/{id}",
+					"raw": "http://localhost:8080/api/ohka/categories/101",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -168,7 +288,7 @@
 						"api",
 						"ohka",
 						"categories",
-						"{id}"
+						"101"
 					]
 				},
 				"description": "StartFragment\n\n```\n### GET /api/categories/{id}\n**Descripción:**  \nObtiene los detalles de una categoría específica según su ID.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único de la categoría que se desea consultar.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve el objeto `Category` correspondiente al ID solicitado.\n**Ejemplo de respuesta:**\n```json\n{\n  \"id\": 101,\n  \"name\": \"Clothing\"\n}\n\n ```\n\nEndFragment"
@@ -179,13 +299,20 @@
 			"name": "saveCategory",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
 				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Electrónica\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Telas\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -212,10 +339,29 @@
 		{
 			"name": "updateCategory",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Refacciones\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/categories/{id}",
+					"raw": "http://localhost:8080/api/ohka/categories/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -225,7 +371,7 @@
 						"api",
 						"ohka",
 						"categories",
-						"{id}"
+						"2"
 					]
 				},
 				"description": "StartFragment\n\n``` markdown\n### PUT /api/categories/{id}\n**Descripción:**  \nActualiza los datos de una categoría existente según su ID. Solo se puede modificar el nombre.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único de la categoría que se desea actualizar.\n**Body (JSON):**\n```json\n{\n  \"name\": \"Ropa deportiva\"\n}\n\n ```\n\nEndFragment"
@@ -235,10 +381,20 @@
 		{
 			"name": "deleteCategoryById",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MTIzOTIxLCJleHAiOjE3NTgxNTk5MjF9.pUNVgrgvRGpfTO99hl9WGGCsseE7Ow9aKxRdPtw5OW8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/ohka/categories/{id}",
+					"raw": "http://localhost:8080/api/ohka/categories/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -248,7 +404,7 @@
 						"api",
 						"ohka",
 						"categories",
-						"{id}"
+						"2"
 					]
 				},
 				"description": "StartFragment\n\n``` markdown\n### DELETE /api/categories/{id}\n**Descripción:**  \nElimina una categoría existente según su ID. Esta operación es irreversible y puede afectar productos que dependan de dicha categoría.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único de la categoría que se desea eliminar.\n**Respuesta exitosa (`204 No Content`):**  \nLa categoría fue eliminada correctamente. No se devuelve contenido en el cuerpo de la respuesta.\n**Errores comunes:**\n- `401 Unauthorized`: Token no incluido o inválido.\n- `404 Not Found`: No existe una categoría con el ID especificado.\n- `409 Conflict`: La categoría está asociada a productos y no puede eliminarse (si se valida integridad referencial).\n**Notas:**\n- Asegúrate de que la categoría no esté en uso antes de eliminarla.\n- Esta operación no se puede deshacer.\n\n ```\n\nEndFragment"
@@ -265,7 +421,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"zork690\",\r\n  \"password\": \"zork999999\"\r\n}",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -333,7 +489,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6b3JrNjkwIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MDk4MzEyLCJleHAiOjE3NTgxMzQzMTJ9.IzBeuX82joDGy02JWJ21zQnZ9K3TiH13DGqfEQcjfvU",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE3NTgxMjU0MTgsImV4cCI6MTc1ODE2MTQxOH0.ycpK6S1QdvpUPYO74dOI_TqXhBnobMEQPC3zzY7ReDM",
 							"type": "string"
 						}
 					]
@@ -359,19 +515,19 @@
 		},
 		{
 			"name": "getUsersByIdOnlyForAdmins",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE3NTgxMjU0MTgsImV4cCI6MTc1ODE2MTQxOH0.ycpK6S1QdvpUPYO74dOI_TqXhBnobMEQPC3zzY7ReDM",
+							"type": "string"
+						}
+					]
 				},
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Electrónica\"\r\n}"
-				},
 				"url": {
 					"raw": "http://localhost:8080/api/ohka/users/1",
 					"protocol": "http",
@@ -394,14 +550,17 @@
 			"name": "deleteUserByIdOnlyForAdmins",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE3NTgxMjU0MTgsImV4cCI6MTc1ODE2MTQxOH0.ycpK6S1QdvpUPYO74dOI_TqXhBnobMEQPC3zzY7ReDM",
+							"type": "string"
+						}
+					]
 				},
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Electrónica\"\r\n}"
-				},
 				"url": {
 					"raw": "http://localhost:8080/api/ohka/users/1",
 					"protocol": "http",
