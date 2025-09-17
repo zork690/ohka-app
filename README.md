@@ -33,11 +33,11 @@ API REST para la gestión de productos, categorías y usuarios, desarrollada con
 docker-compose up --build
 
 # 3. Acceder a la API
-http://localhost:8080
+http://localhost:8080```
 
 ---
 
-##🔑 Credenciales de prueba
+## 🔑 Credenciales de prueba
 
 Puedes usar las siguientes credenciales para autenticarte y probar los endpoints protegidos:
 
