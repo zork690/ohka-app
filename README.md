@@ -28,6 +28,11 @@ Puedes usar las siguientes credenciales para autenticarte y probar los endpoints
 
 ---
 
+## 📬 Colección Postman
+Incluye una colección para probar todos los endpoints del proyecto. La colección se encuentra en la carpeta postman_collection/
+
+---
+
 ## 🚀 Cómo levantar el proyecto
 
 ### Requisitos previos
