@@ -69,7 +69,8 @@ public class ProductService {
             }
 
             if (category != null && !category.isEmpty()) {
-                predicate = cb.and(predicate, cb.equal(cb.lower(root.get("category")), category.toLowerCase()));
+                predicate = cb.and(predicate,
+                        cb.equal(cb.lower(root.get("category").get("name")), category.toLowerCase()));
             }
 
             if (minPrice != null) {
