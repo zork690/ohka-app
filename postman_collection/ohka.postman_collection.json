@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "06795684-1aee-47f0-9c6c-acc566de29c6",
+		"name": "ohka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8544597"
+	},
+	"item": [
+		{
+			"name": "getPaginatedProducts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6b3JrNjkwIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MDk4MzEyLCJleHAiOjE3NTgxMzQzMTJ9.IzBeuX82joDGy02JWJ21zQnZ9K3TiH13DGqfEQcjfvU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"products"
+					]
+				},
+				"description": "StartFragment\n\n```\n### GET /api/products\n\n**Descripción:**  \nObtiene una lista paginada de todos los productos registrados en el sistema.\n\n**Parámetros de consulta:**\n\n- `page` (int, opcional): Número de página que se desea consultar. Valor por defecto: `0`.\n- `size` (int, opcional): Cantidad de productos por página. Valor por defecto: `10`.\n\n**Respuesta exitosa (`200 OK`):**  \nDevuelve una estructura paginada con los productos solicitados.\n\n**Ejemplo de respuesta:**\n```json\n{\n  \"content\": [\n    {\n      \"id\": 1,\n      \"name\": \"Smartphone\",\n      \"description\": \"Latest model\",\n      \"price\": 799.99,\n      \"category\": {\n        \"id\": 100,\n        \"name\": \"Electronics\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"T-Shirt\",\n      \"description\": \"Cotton, size M\",\n      \"price\": 19.99,\n      \"category\": {\n        \"id\": 101,\n        \"name\": \"Clothing\"\n      }\n    }\n  ],\n  \"totalElements\": 2,\n  \"totalPages\": 1,\n  \"number\": 0,\n  \"size\": 10\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "getProductById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"products",
+						"1"
+					]
+				},
+				"description": "``` markdown\n### GET /api/products/{id}\n\n**Descripción:**  \nObtiene los detalles de un producto específico según su ID.\n\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único del producto que se desea consultar.\n\n**Respuesta exitosa (`200 OK`):**  \nDevuelve el objeto `Product` correspondiente al ID solicitado.\n\n**Respuesta de error (`404 Not Found`):**  \nNo existe un producto con el ID especificado.\n\n**Ejemplo de respuesta:**\n```json\n{\n  \"id\": 1,\n  \"name\": \"Smartphone\",\n  \"description\": \"Latest model\",\n  \"price\": 799.99,\n  \"category\": {\n    \"id\": 100,\n    \"name\": \"Electronics\"\n  }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "upsertProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/products/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"products",
+						"save"
+					]
+				},
+				"description": "StartFragment\n\n```\n### POST /api/products/save\n**Descripción:**  \nCrea un nuevo producto o actualiza uno existente. Si el objeto `Product` contiene un `id`, se actualiza el producto correspondiente; si no, se crea uno nuevo.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Body (JSON):**\n```json\n{\n  \"id\": null,\n  \"name\": \"Zapatos deportivos\",\n  \"description\": \"Cómodos y resistentes\",\n  \"price\": 1200.00,\n  \"imageBase64\": \"data:image/jpeg;base64,...\",\n  \"category\": {\n    \"id\": 101\n  }\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProductById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/products/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"products",
+						"{id}"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### DELETE /api/products/{id}\n**Descripción:**  \nElimina un producto existente según su ID. Esta operación es irreversible.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único del producto que se desea eliminar.\n**Respuesta exitosa (`204 No Content`):**  \nEl producto fue eliminado correctamente. No se devuelve contenido en el cuerpo de la respuesta.\n**Errores comunes:**\n- `401 Unauthorized`: Token no incluido o inválido.\n- `404 Not Found`: No existe un producto con el ID especificado.\n- `403 Forbidden`: El usuario no tiene permisos para eliminar productos (si aplica control de roles).\n**Notas:**\n- Asegúrate de que el ID exista antes de intentar eliminar.\n- Esta operación no se puede deshacer.\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "getProductsByFilter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/products/filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"products",
+						"filter"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### GET /api/products/filter\n**Descripción:**  \nFiltra productos según nombre, categoría, rango de precios y ordenamiento. Devuelve los resultados en formato paginado.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de consulta:**\n- `name` (String, opcional): Nombre parcial del producto.\n- `category` (String, opcional): Nombre de la categoría.\n- `minPrice` (Double, opcional): Precio mínimo.\n- `maxPrice` (Double, opcional): Precio máximo.\n- `page` (int, opcional): Número de página. Valor por defecto: `0`.\n- `size` (int, opcional): Cantidad de productos por página. Valor por defecto: `10`.\n- `sortBy` (String, opcional): Campo por el cual ordenar (`id`, `name`, `price`, etc.). Valor por defecto: `id`.\n- `direction` (String, opcional): Dirección de ordenamiento (`asc` o `desc`). Valor por defecto: `asc`.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve una página de productos que cumplen con los criterios de búsqueda.\n**Ejemplo de respuesta:**\n```json\n{\n  \"content\": [\n    {\n      \"id\": 5,\n      \"name\": \"Laptop\",\n      \"description\": \"High performance\",\n      \"price\": 1500.00,\n      \"category\": {\n        \"id\": 100,\n        \"name\": \"Electronics\"\n      }\n    }\n  ],\n  \"totalElements\": 1,\n  \"totalPages\": 1,\n  \"number\": 0,\n  \"size\": 10\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllCategories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"categories"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### GET /api/categories\n**Descripción:**  \nObtiene una lista completa de todas las categorías disponibles en el sistema.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros:**  \nEste endpoint no requiere parámetros.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve un arreglo de objetos `Category`.\n**Ejemplo de respuesta:**\n```json\n[\n  {\n    \"id\": 100,\n    \"name\": \"Electronics\"\n  },\n  {\n    \"id\": 101,\n    \"name\": \"Clothing\"\n  }\n]\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "getCategoryById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/categories/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"categories",
+						"{id}"
+					]
+				},
+				"description": "StartFragment\n\n```\n### GET /api/categories/{id}\n**Descripción:**  \nObtiene los detalles de una categoría específica según su ID.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único de la categoría que se desea consultar.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve el objeto `Category` correspondiente al ID solicitado.\n**Ejemplo de respuesta:**\n```json\n{\n  \"id\": 101,\n  \"name\": \"Clothing\"\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "saveCategory",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Electrónica\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"categories"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### POST /api/categories\n**Descripción:**  \nCrea una nueva categoría en el sistema. Esta categoría podrá ser utilizada posteriormente para clasificar productos.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Body (JSON):**\n```json\n{\n  \"name\": \"Accesorios\"\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "updateCategory",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/categories/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"categories",
+						"{id}"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### PUT /api/categories/{id}\n**Descripción:**  \nActualiza los datos de una categoría existente según su ID. Solo se puede modificar el nombre.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único de la categoría que se desea actualizar.\n**Body (JSON):**\n```json\n{\n  \"name\": \"Ropa deportiva\"\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCategoryById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/categories/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"categories",
+						"{id}"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### DELETE /api/categories/{id}\n**Descripción:**  \nElimina una categoría existente según su ID. Esta operación es irreversible y puede afectar productos que dependan de dicha categoría.\n**Autenticación requerida:**  \nEste endpoint requiere un token JWT válido en el encabezado `Authorization`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único de la categoría que se desea eliminar.\n**Respuesta exitosa (`204 No Content`):**  \nLa categoría fue eliminada correctamente. No se devuelve contenido en el cuerpo de la respuesta.\n**Errores comunes:**\n- `401 Unauthorized`: Token no incluido o inválido.\n- `404 Not Found`: No existe una categoría con el ID especificado.\n- `409 Conflict`: La categoría está asociada a productos y no puede eliminarse (si se valida integridad referencial).\n**Notas:**\n- Asegúrate de que la categoría no esté en uso antes de eliminarla.\n- Esta operación no se puede deshacer.\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"zork690\",\r\n  \"password\": \"zork999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"auth",
+						"login"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### POST /api/auth/login\n**Descripción:**  \nAutentica a un usuario con sus credenciales (`username` y `password`) y devuelve un token JWT válido para acceder a los endpoints protegidos.\n**Autenticación requerida:**  \nNo. Este endpoint es público y se utiliza para obtener el token de acceso.\n**Encabezados:**\n- `Content-Type: application/json`\n**Body (JSON):**\n```json\n{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"zork690\",\r\n  \"password\": \"zork999999\",\r\n  \"roles\": [\"USER\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"auth",
+						"register"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### POST /api/auth/register\n**Descripción:**  \nRegistra un nuevo usuario en el sistema. El usuario creado podrá autenticarse posteriormente mediante el endpoint de login y acceder a los recursos protegidos según sus roles asignados.\n**Autenticación requerida:**  \nNo. Este endpoint es público y se utiliza para crear una cuenta de usuario.\n**Encabezados:**\n- `Content-Type: application/json`\n**Body (JSON):**\n```json\n{\n  \"username\": \"nuevoUsuario\",\n  \"password\": \"claveSegura123\",\n  \"roles\": [\"USER\"]\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersOnlyForAdmins",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6b3JrNjkwIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzU4MDk4MzEyLCJleHAiOjE3NTgxMzQzMTJ9.IzBeuX82joDGy02JWJ21zQnZ9K3TiH13DGqfEQcjfvU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"users"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### GET /api/users\n**Descripción:**  \nObtiene una lista completa de todos los usuarios registrados en el sistema. Este endpoint está restringido exclusivamente a usuarios con rol `ADMIN`.\n**Autenticación requerida:**  \nSí. Este endpoint requiere un token JWT válido en el encabezado `Authorization` y el usuario autenticado debe tener el rol `ADMIN`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros:**  \nEste endpoint no requiere parámetros.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve un arreglo de objetos `User`.\n**Ejemplo de respuesta:**\n```json\n[\n  {\n    \"id\": 200,\n    \"username\": \"admin\",\n    \"roles\": [\"ADMIN\"]\n  },\n  {\n    \"id\": 201,\n    \"username\": \"user\",\n    \"roles\": [\"USER\"]\n  }\n]\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersByIdOnlyForAdmins",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Electrónica\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"users",
+						"1"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### GET /api/users/{id}\n**Descripción:**  \nObtiene los detalles de un usuario específico según su ID. Este endpoint está restringido exclusivamente a usuarios con rol `ADMIN`.\n**Autenticación requerida:**  \nSí. Este endpoint requiere un token JWT válido en el encabezado `Authorization` y el usuario autenticado debe tener el rol `ADMIN`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único del usuario que se desea consultar.\n**Respuesta exitosa (`200 OK`):**  \nDevuelve el objeto `User` correspondiente al ID solicitado.\n**Ejemplo de respuesta:**\n```json\n{\n  \"id\": 201,\n  \"username\": \"user\",\n  \"roles\": [\"USER\"]\n}\n\n ```\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUserByIdOnlyForAdmins",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Electrónica\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ohka/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ohka",
+						"users",
+						"1"
+					]
+				},
+				"description": "StartFragment\n\n``` markdown\n### DELETE /api/users/{id}\n**Descripción:**  \nElimina un usuario del sistema según su ID. Esta operación está restringida exclusivamente a usuarios con rol `ADMIN` y es irreversible.\n**Autenticación requerida:**  \nSí. Este endpoint requiere un token JWT válido en el encabezado `Authorization` y el usuario autenticado debe tener el rol `ADMIN`.\n**Encabezados:**\n- `Authorization: Bearer <tu_token_jwt>`\n- `Content-Type: application/json`\n**Parámetros de ruta:**\n- `id` (Long, obligatorio): Identificador único del usuario que se desea eliminar.\n**Respuesta exitosa (`204 No Content`):**  \nEl usuario fue eliminado correctamente. No se devuelve contenido en el cuerpo de la respuesta.\n**Errores comunes:**\n- `401 Unauthorized`: Token no incluido o inválido.\n- `403 Forbidden`: El usuario autenticado no tiene permisos suficientes (no es `ADMIN`).\n- `404 Not Found`: No existe un usuario con el ID especificado.\n**Notas:**\n- Esta operación no se puede deshacer.\n- Si el usuario está vinculado a otras entidades (por ejemplo, productos o roles), asegúrate de manejar la integridad \n\n ```\n\nEndFragment"
+			},
+			"response": []
+		}
+	]
+}
