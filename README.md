@@ -15,6 +15,19 @@ API REST para la gestión de productos, categorías y usuarios, desarrollada con
 
 ---
 
+## 🔑 Credenciales de prueba
+
+Puedes usar las siguientes credenciales para autenticarte y probar los endpoints protegidos:
+
+| Usuario | Contraseña | Rol    |
+|--------|------------|--------|
+| `admin` | `admin123` | ADMIN  |
+| `user`  | `user123`  | USER   |
+
+> Recuerda que el token JWT obtenido al iniciar sesión debe incluirse en el encabezado de cada petición protegida.
+
+---
+
 ## 🚀 Cómo levantar el proyecto
 
 ### Requisitos previos
