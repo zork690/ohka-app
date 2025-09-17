@@ -6,11 +6,11 @@ API REST para la gestión de productos, categorías y usuarios, desarrollada con
 
 ## 📦 Tecnologías utilizadas
 
-- Java 17 + Spring Boot
-- Spring Security + JWT
-- PostgreSQL
-- Docker + Docker Compose
-- Gradle
+- Java 17 + Spring Boot  
+- Spring Security + JWT  
+- PostgreSQL  
+- Docker + Docker Compose  
+- Gradle  
 - Postman (para pruebas)
 
 ---
@@ -19,8 +19,8 @@ API REST para la gestión de productos, categorías y usuarios, desarrollada con
 
 ### Requisitos previos
 
-- Docker y Docker Compose instalados
-- Java 17 (solo si compilas localmente)
+- Docker y Docker Compose instalados  
+- Java 17 (solo si compilas localmente)  
 - Postman (opcional)
 
 ### Instrucciones
@@ -33,17 +33,4 @@ API REST para la gestión de productos, categorías y usuarios, desarrollada con
 docker-compose up --build
 
 # 3. Acceder a la API
-http://localhost:8080```
-
----
-
-## 🔑 Credenciales de prueba
-
-Puedes usar las siguientes credenciales para autenticarte y probar los endpoints protegidos:
-
-| Usuario | Contraseña | Rol    |
-|--------|------------|--------|
-| `admin` | `admin123` | ADMIN  |
-| `user`  | `user123`  | USER   |
-
-> Recuerda que el token JWT obtenido al iniciar sesión debe incluirse en el encabezado de cada petición protegida.
+http://localhost:8080
