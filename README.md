@@ -34,3 +34,15 @@ docker-compose up --build
 
 # 3. Acceder a la API
 http://localhost:8080
+
+
+## 🔑 Credenciales de prueba
+
+Puedes usar las siguientes credenciales para autenticarte y probar los endpoints protegidos:
+
+| Usuario | Contraseña | Rol    |
+|--------|------------|--------|
+| `admin` | `admin123` | ADMIN  |
+| `user`  | `user123`  | USER   |
+
+> Recuerda que el token JWT obtenido al iniciar sesión debe incluirse en el encabezado de cada petición protegida.
