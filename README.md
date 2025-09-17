@@ -6,11 +6,11 @@ API REST para la gestión de productos, categorías y usuarios, desarrollada con
 
 ## 📦 Tecnologías utilizadas
 
-- Java 17 + Spring Boot  
+- Java 17 + Spring Boot 2.7.12
 - Spring Security + JWT  
 - PostgreSQL  
-- Docker + Docker Compose  
-- Gradle  
+- Docker 28.3.2 + Docker Compose v2.39.1-desktop.1  
+- Gradle 8.14.3
 - Postman (para pruebas)
 
 ---
@@ -28,6 +28,11 @@ Puedes usar las siguientes credenciales para autenticarte y probar los endpoints
 
 ---
 
+## 📬 Colección Postman
+Incluye una colección para probar todos los endpoints del proyecto. La colección se encuentra en la carpeta postman_collection/
+
+---
+
 ## 🚀 Cómo levantar el proyecto
 
 ### Requisitos previos
@@ -40,7 +45,7 @@ Puedes usar las siguientes credenciales para autenticarte y probar los endpoints
 
 ```bash
 # 1. Compilar el proyecto (si no tienes el JAR)
-./gradlew build
+gradle clean build
 
 # 2. Levantar los contenedores
 docker-compose up --build
